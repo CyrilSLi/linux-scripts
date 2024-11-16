@@ -19,8 +19,8 @@ for_window [app_id="_usercliapp$"] floating enable, move position center, resize
 bindsym $mod+Control+Space floating enable, move position center, resize set width 80ppt height 80ppt
 
 exec swayidle -w \
-    before-sleep 'echo sleep > /tmp/wlsunset; swaymsg "output * power off"' \
-    after-resume 'swaymsg "output * power on"; swaylock; rm /tmp/wlsunset'
+    before-sleep 'swaymsg "output * power off"' \
+    after-resume 'swaymsg "output * power on"; swaylock'
 #    timeout 5 'if pgrep swaylock; then swaymsg "output * power off"; fi' \
 
 input type:touchpad {

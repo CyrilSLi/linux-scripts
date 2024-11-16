@@ -1,15 +1,5 @@
-if [ -e /tmp/wlsunset ]; then
-    if pgrep wlsunset >/dev/null 2>&1; then 
-        stdbuf -oL printf '{"alt": "on"}'
-    else
-        stdbuf -oL printf '{"alt": "off"}'
-    fi
-    exit 0
-fi
-mkdir .. /tmp/wlsunset
 if pgrep wlsunset >/dev/null 2>&1; then
     killall -9 wlsunset >/dev/null 2>&1
-    stdbuf -oL printf '{"alt": "off"}'
 else
     RETRIES=30
     counter=0
@@ -28,6 +18,5 @@ else
     longitude=$(echo $CONTENT | jq .lon)
     latitude=$(echo $CONTENT | jq .lat)
     wlsunset -l $latitude -L $longitude >/dev/null 2>&1 &
-    stdbuf -oL printf '{"alt": "on"}'
 fi
-rm -r /tmp/wlsunset
+pkill -35 waybar

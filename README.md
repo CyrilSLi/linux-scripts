@@ -13,21 +13,14 @@ A collection of personal scripts I use on Linux
     - `bindgesture swipe:3:right exec "python /path/to/switch_desktop.py left`
 
 - `wlsunset.sh` - Script to use with waybar to enable/disable `wlsunset`
-    - Known issues:
-        - The state toggles every time a new output is connected
-        - The waybar icon does not sync between outputs
-        - The script uses `ip-api` to get location, and will by default timeout after 30 tries every 2 seconds
-        - The following options are required in `swayidle` for the script to work with system suspend and resume:
-        - `before-sleep 'echo sleep > /tmp/wlsunset; [other commands if applicable]'`
-        - `after-resume '[other commands if applicable;] rm /tmp/wlsunset'`
-    - Waybar config:
+    - The script uses `ip-api` to get location, and will by default timeout after 30 tries every 2 seconds
+    - Waybar config (if you have another widget which uses `signal` to update, ensure that each widget has a unique signal number):
 ```
     "custom/wlsunset": {
         "interval": "once",
-        "exec-on-event": true,
-        "exec": "sh /path/to/wlsunset.sh",
-        "exec-if": "true",
-        "on-click": "true",
+        "exec": "if pgrep wlsunset >/dev/null 2>&1; then stdbuf -oL printf '{\"alt\": \"on\"}'; else stdbuf -oL printf '{\"alt\": \"off\"}'; fi",
+        "on-click": "sh /path/to/wlsunset.sh",
+        "signal": 1, // SIGRTMIN+1 or 35
         "return-type": "json",
         "format": "{icon}",
         "tooltip-format": "wlsunset: {alt}",
