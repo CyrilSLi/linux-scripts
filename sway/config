@@ -1,0 +1,135 @@
+set $term foot
+set $mod Mod4
+
+output * bg /usr/share/backgrounds/default.png fill
+output * adaptive_sync off
+output eDP-1 scale 1.25 pos 0 1080 mode 2560x1600@165Hz
+output DP-2 scale 1.5 pos 2048 920 mode 3840x2160@60Hz
+output DP-3 scale 1 pos 128 0 mode 1920x1080@100Hz
+
+for_window [all] inhibit_idle open
+for_window [all] border normal 0
+for_window [app_id="localsend"] floating enable
+for_window [app_id="mpv"] floating enable
+for_window [class="XEyes"] floating enable, sticky enable
+for_window [title="Diacritik"] floating enable, sticky enable, move position center
+for_window [title="Picture-in-picture"] floating enable, sticky enable, border none, resize set 480 px 270 px
+for_window [title="File Operation Progress"] floating enable
+for_window [app_id="_usercliapp$"] floating enable, move position center, resize set width 80ppt height 80ppt
+bindsym $mod+Control+Space floating enable, move position center, resize set width 80ppt height 80ppt
+
+exec swayidle -w \
+    before-sleep 'echo sleep > /tmp/wlsunset; swaymsg "output * power off"' \
+    after-resume 'swaymsg "output * power on"; swaylock; rm /tmp/wlsunset'
+#    timeout 5 'if pgrep swaylock; then swaymsg "output * power off"; fi' \
+
+input type:touchpad {
+    dwt disabled
+    tap enabled
+    drag disabled
+    click_method clickfinger
+    natural_scroll enabled
+    middle_emulation disabled
+    tap_button_map lrm
+    scroll_factor 0.15
+    pointer_accel 0.4
+    accel_profile adaptive
+}
+
+input type:keyboard {
+    xkb_layout us
+    xkb_options ""
+}
+
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+floating_modifier $mod normal
+bindsym $mod+Shift+c reload
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+Control+Left move workspace to output left
+bindsym $mod+Control+Down move workspace to output down
+bindsym $mod+Control+Up move workspace to output up
+bindsym $mod+Control+Right move workspace to output right
+
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# exec_always killall ulauncher; ulauncher --hide-window --no-window-shadow
+exec ulauncher --hide-window --no-window-shadow
+exec python /home/cyrilli/.config/sway/detect_onlywindow.py
+
+bindgesture swipe:3:left exec "python /home/cyrilli/Projects/swaymc/switch_desktop.py right # && echo 2 > /tmp/sovpipe && sleep 0.000001 && echo 2 > /tmp/sovpipe"
+bindgesture swipe:3:right exec "python /home/cyrilli/Projects/swaymc/switch_desktop.py left # && echo 2 > /tmp/sovpipe && sleep 0.000001 && echo 2 > /tmp/sovpipe"
+# bindgesture swipe:3:up exec "echo 1 > /tmp/sovpipe"
+# bindgesture swipe:3:down exec "echo 0 > /tmp/sovpipe"
+bindsym alt+space exec ulauncher-toggle
+bindsym $mod+d exec "python /home/cyrilli/Projects/diacritik/diacritik.py"
+
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+Shift+equal scratchpad show
+
+include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
