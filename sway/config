@@ -44,7 +44,7 @@ input type:keyboard {
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 floating_modifier $mod normal
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c exec "sh /home/cyrilli/script/vnc-off.sh; sway reload"
 
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
