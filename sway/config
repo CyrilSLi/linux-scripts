@@ -92,7 +92,8 @@ bindgesture swipe:3:right exec "python /home/cyrilli/Projects/swaymc/switch_desk
 # bindgesture swipe:3:up exec "echo 1 > /tmp/sovpipe"
 # bindgesture swipe:3:down exec "echo 0 > /tmp/sovpipe"
 bindsym alt+space exec ulauncher-toggle
-bindsym $mod+d exec "python /home/cyrilli/Projects/diacritik/diacritik.py"
+bindsym $mod+d exec python /home/cyrilli/Projects/diacritik/diacritik.py
+bindsym $mod+ctrl+equal exec python /home/cyrilli/.config/sway/new_workspace.py
 
 # Layout stuff:
 #
