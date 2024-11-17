@@ -16,6 +16,9 @@ for_window [title="Diacritik"] floating enable, sticky enable, move position cen
 for_window [title="Picture-in-picture"] floating enable, sticky enable, border none, resize set 480 px 270 px
 for_window [title="File Operation Progress"] floating enable
 for_window [app_id="_usercliapp$"] floating enable, move position center, resize set width 80ppt height 80ppt
+for_window [title="Open File"] floating enable, move position center, resize set width 80ppt height 80ppt
+for_window [title="Open Folder"] floating enable, move position center, resize set width 80ppt height 80ppt
+for_window [title="All Files"] floating enable, move position center, resize set width 80ppt height 80ppt
 bindsym $mod+Control+Space floating enable, move position center, resize set width 80ppt height 80ppt
 
 exec swayidle -w \
@@ -94,8 +97,8 @@ bindgesture swipe:3:right exec "python /home/cyrilli/Projects/swaymc/switch_desk
 
 bindsym alt+space exec ulauncher-toggle
 bindsym $mod+d exec python /home/cyrilli/Projects/diacritik/diacritik.py
-bindsym $mod+ctrl+equal exec python /home/cyrilli/.config/sway/new_workspace.py switch
-bindsym $mod+equal exec python /home/cyrilli/.config/sway/new_workspace.py move
+bindsym $mod+ctrl+equal exec python /home/cyrilli/.config/sway/new_workspace.py move
+bindsym $mod+equal exec python /home/cyrilli/.config/sway/new_workspace.py switch
 
 # Layout stuff:
 #
