@@ -1,6 +1,7 @@
 import subprocess, json, time, sys
 
 window = {"change": None}
+count = 0 # Debugging
 ignore = [
     "Picture-in-picture"
 ]
@@ -44,9 +45,10 @@ while True:
                 _ = subprocess.run (["swaymsg", f'[con_id="{k}"]', "border", "none"])
         elif v == "none":
             _ = subprocess.run (["swaymsg", f'[con_id="{k}"]', "border", "normal"])
-    
+
     window ["change"] = None
-    while window ["change"] not in ["new", "close", "floating", "title", "move"]:
+    while not (window ["change"] in ("new", "close", "floating", "title", "move") or
+               window ["change"] == "focus" and window ["container"] ["type"] == "floating_con"):
         window = subprocess.run (["swaymsg", "-t", "subscribe", '[ "window" ]'], capture_output = True)
         window.check_returncode ()
         window = json.loads (window.stdout.decode ())

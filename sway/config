@@ -90,8 +90,8 @@ bindsym $mod+Shift+0 move container to workspace number 10
 exec ulauncher --hide-window --no-window-shadow
 exec python /home/cyrilli/.config/sway/detect_onlywindow.py
 
-bindgesture swipe:3:left exec "python /home/cyrilli/Projects/swaymc/switch_desktop.py right # && echo 2 > /tmp/sovpipe && sleep 0.000001 && echo 2 > /tmp/sovpipe"
-bindgesture swipe:3:right exec "python /home/cyrilli/Projects/swaymc/switch_desktop.py left # && echo 2 > /tmp/sovpipe && sleep 0.000001 && echo 2 > /tmp/sovpipe"
+bindgesture swipe:3:left exec "python /home/cyrilli/.config/sway/switch_desktop.py right # && echo 2 > /tmp/sovpipe && sleep 0.000001 && echo 2 > /tmp/sovpipe"
+bindgesture swipe:3:right exec "python /home/cyrilli/.config/sway/switch_desktop.py left # && echo 2 > /tmp/sovpipe && sleep 0.000001 && echo 2 > /tmp/sovpipe"
 # bindgesture swipe:3:up exec "echo 1 > /tmp/sovpipe"
 # bindgesture swipe:3:down exec "echo 0 > /tmp/sovpipe"
 
