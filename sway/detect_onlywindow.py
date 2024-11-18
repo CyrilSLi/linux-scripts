@@ -1,11 +1,10 @@
 import subprocess, json, time, sys
-
 window = {"change": None}
 
 while True:
     pretty = subprocess.run (["swaymsg", "-pt", "get_tree"], capture_output = True)
     pretty.check_returncode ()
-    pretty = [i [4 : ] for i in pretty.stdout.decode ().strip ().split ("\n") if i.startswith ("    ")]
+    pretty = [i [4 : ] for i in pretty.stdout.decode ().strip ().split ("\n") if i.startswith ("    ")] + ["#"]
 
     raw = subprocess.run (["swaymsg", "-rt", "get_tree"], capture_output = True)
     raw.check_returncode ()
@@ -34,7 +33,7 @@ while True:
             num = int (container [0] [1 : -1])
             if num in borders and container [1] == "con":
                 containers.append (num)
-    
+
     for k, v in borders.items ():
         if k in onlys:
             if v == "normal":
