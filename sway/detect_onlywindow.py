@@ -46,4 +46,4 @@ while True:
         window = subprocess.run (["swaymsg", "-t", "subscribe", '[ "window" ]'], capture_output = True)
         window.check_returncode ()
         window = json.loads (window.stdout.decode ())
-        time.sleep (0.1)
+        time.sleep (0.3)
