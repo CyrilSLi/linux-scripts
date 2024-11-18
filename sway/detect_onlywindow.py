@@ -1,5 +1,9 @@
 import subprocess, json, time, sys
+
 window = {"change": None}
+ignore = [
+    "Picture-in-picture"
+]
 
 while True:
     pretty = subprocess.run (["swaymsg", "-pt", "get_tree"], capture_output = True)
@@ -16,7 +20,7 @@ while True:
         if node ["name"] in ("__i3", "__i3_scratch"):
             return
         if not node ["nodes"]:
-            if "border" in node:
+            if "border" in node and node ["name"] not in ignore:
                 borders [node ["id"]] = node ["border"]
         for i in node ["nodes"] + node ["floating_nodes"]:
             recurse_node (i)
