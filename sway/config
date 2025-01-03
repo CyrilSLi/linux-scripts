@@ -19,7 +19,7 @@ for_window [app_id="_usercliapp$"] floating enable, move position center, resize
 for_window [title="Open File"] floating enable, move position center, resize set width 80ppt height 80ppt
 for_window [title="Open Folder"] floating enable, move position center, resize set width 80ppt height 80ppt
 for_window [title="All Files"] floating enable, move position center, resize set width 80ppt height 80ppt
-bindsym $mod+Control+Space floating enable, move position center, resize set width 80ppt height 80ppt
+bindsym $mod+Control+Space floating disable, floating enable, move position center, resize set width 80ppt height 80ppt
 
 exec swayidle -w \
     before-sleep 'swaymsg "output * power off"' \
