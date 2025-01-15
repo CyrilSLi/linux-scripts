@@ -74,6 +74,16 @@ bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
+bindsym $mod+alt+1 workspace number 11
+bindsym $mod+alt+2 workspace number 12
+bindsym $mod+alt+3 workspace number 13
+bindsym $mod+alt+4 workspace number 14
+bindsym $mod+alt+5 workspace number 15
+bindsym $mod+alt+6 workspace number 16
+bindsym $mod+alt+7 workspace number 17
+bindsym $mod+alt+8 workspace number 18
+bindsym $mod+alt+9 workspace number 19
+bindsym $mod+alt+0 workspace number 20
 
 bindsym $mod+Shift+1 move container to workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2
@@ -85,6 +95,16 @@ bindsym $mod+Shift+7 move container to workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
+bindsym $mod+Shift+alt+1 move container to workspace number 11
+bindsym $mod+Shift+alt+2 move container to workspace number 12
+bindsym $mod+Shift+alt+3 move container to workspace number 13
+bindsym $mod+Shift+alt+4 move container to workspace number 14
+bindsym $mod+Shift+alt+5 move container to workspace number 15
+bindsym $mod+Shift+alt+6 move container to workspace number 16
+bindsym $mod+Shift+alt+7 move container to workspace number 17
+bindsym $mod+Shift+alt+8 move container to workspace number 18
+bindsym $mod+Shift+alt+9 move container to workspace number 19
+bindsym $mod+Shift+alt+0 move container to workspace number 20
 
 # exec_always killall ulauncher; ulauncher --hide-window --no-window-shadow
 exec ulauncher --hide-window --no-window-shadow
@@ -92,6 +112,8 @@ exec python /home/cyrilli/.config/sway/detect_onlywindow.py
 
 bindgesture swipe:3:left exec "python /home/cyrilli/.config/sway/switch_desktop.py right # && echo 2 > /tmp/sovpipe && sleep 0.000001 && echo 2 > /tmp/sovpipe"
 bindgesture swipe:3:right exec "python /home/cyrilli/.config/sway/switch_desktop.py left # && echo 2 > /tmp/sovpipe && sleep 0.000001 && echo 2 > /tmp/sovpipe"
+bindsym $mod+alt+Left exec "python /home/cyrilli/.config/sway/switch_desktop.py left"
+bindsym $mod+alt+Right exec "python /home/cyrilli/.config/sway/switch_desktop.py right"
 # bindgesture swipe:3:up exec "echo 1 > /tmp/sovpipe"
 # bindgesture swipe:3:down exec "echo 0 > /tmp/sovpipe"
 
@@ -105,13 +127,13 @@ bindsym $mod+equal exec python /home/cyrilli/.config/sway/new_workspace.py switc
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+    # bindsym $mod+b splith
+    # bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+    # bindsym $mod+s layout stacking
+    # bindsym $mod+w layout tabbed
+    # bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
