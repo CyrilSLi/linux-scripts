@@ -38,14 +38,14 @@ while True:
         if i.startswith ("#"):
             if len (containers) == 1:
                 onlys.append (containers [0])
-            if i != "# EOF" and workspace in currentspaces: # Workspace is visible
+            if workspace in currentspaces: # Workspace is visible
                 with open ("/tmp/custom-sway-window/" + buffered_output, "w") as f:
                     if len (allcontainers) == 1 and allcontainers [0] in names:
                         f.write (names [allcontainers [0]])
             allcontainers, containers = [], []
             workspace = i.split () [2] [1 : -1] if i != "# EOF" else None
             buffered_output = output
-        elif i.startswith (": output"):
+        elif i.split () [1] == "output":
             output = i.split (" ") [2] [1 : -1]
         else:
             container = i.strip ().split (" ")
