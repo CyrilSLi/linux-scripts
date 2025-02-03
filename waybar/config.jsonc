@@ -8,7 +8,7 @@
     // Choose the order of the modules
     "modules-left": [
         "sway/workspaces",
-        "sway/window"
+        "custom/sway-window"
     ],
     "modules-right": [
         "tray",
@@ -148,6 +148,12 @@
             "off": "☀️",
             "on": "🌙"
         }
+    },
+    "custom/sway-window": {
+        "interval": "once",
+        "exec": "cat /tmp/custom-sway-window/$WAYBAR_OUTPUT_NAME",
+        "signal": 2, // SIGRTMIN+2 or 36
+        "tooltip": false
     },
     "custom/timezone": {
         "interval": "once",
