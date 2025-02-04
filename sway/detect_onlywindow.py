@@ -25,7 +25,7 @@ while True:
             currentspaces [node ["current_workspace"]] = node ["name"]
         if node ["name"] in ("__i3", "__i3_scratch"):
             return
-        if not node ["nodes"]:
+        if not node ["nodes"] and "con" in node ["type"]:
             if "border" in node and node ["name"] not in ignore:
                 borders [node ["id"]] = node ["border"]
             names [node ["id"]] = node ["name"]
@@ -56,20 +56,18 @@ while True:
                 allcontainers.append (num)
 
     _ = subprocess.run (["pkill", "-36", "waybar"])
-    if reload or ("current" not in window and (window ["change"] in ("new", "close", "floating", "title", "move") or window ["change"] == "focus" and window ["container"] ["type"] == "floating_con")):
-        if not reload and window ["change"] in ("new", "close"):
-            reload = True
-            continue
-        reload = False
-        # time.sleep (0.3)
+    if window ["change"] != "focus": # reload or ("current" not in window and (window ["change"] in ("new", "close", "floating", "title", "move") or window ["change"] == "focus" and window ["container"] ["type"] == "floating_con")):
         for k, v in borders.items ():
             if k in onlys:
                 if v == "normal":
                     _ = subprocess.run (["swaymsg", f'[con_id="{k}"]', "border", "none"])
             elif v == "none":
                 _ = subprocess.run (["swaymsg", f'[con_id="{k}"]', "border", "normal"])
-
-    window ["change"] = None
-    window = subprocess.run (["swaymsg", "-t", "subscribe", '[ "window", "workspace" ]'], capture_output = True)
-    window.check_returncode ()
-    window = json.loads (window.stdout.decode ())
+    if reload:
+        time.sleep (0.3)
+        reload = False
+    else:
+        window = subprocess.run (["swaymsg", "-t", "subscribe", '[ "window", "workspace" ]'], capture_output = True)
+        window.check_returncode ()
+        window = json.loads (window.stdout.decode ())
+        reload = True
