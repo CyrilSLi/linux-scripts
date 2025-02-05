@@ -1,15 +1,14 @@
-import subprocess, json, time, os
+import subprocess, json, threading, time, os
 
 window = {"change": None}
 count = 0 # Debugging
 ignore = [
     "Picture-in-picture"
 ]
-reload = False
 if not os.path.exists ("/tmp/custom-sway-window"):
     os.mkdir ("/tmp/custom-sway-window")
 
-while True:
+def onlywindow ():
     pretty = subprocess.run (["swaymsg", "-pt", "get_tree"], capture_output = True)
     pretty.check_returncode ()
     pretty = [i [4 : ] for i in pretty.stdout.decode ().strip ().split ("\n") if i.startswith ("    ") or i.startswith ("  #")] + ["# EOF"]
@@ -20,7 +19,7 @@ while True:
 
     borders, currentspaces, names = {}, {}, {}
     def recurse_node (node, workspace = None):
-        global borders, currentspaces, names
+        nonlocal borders, currentspaces, names
         if node ["type"] == "output" and "current_workspace" in node:
             currentspaces [node ["current_workspace"]] = node ["name"]
         if node ["name"] in ("__i3", "__i3_scratch"):
@@ -56,18 +55,22 @@ while True:
                 allcontainers.append (num)
 
     _ = subprocess.run (["pkill", "-36", "waybar"])
-    if window ["change"] != "focus": # reload or ("current" not in window and (window ["change"] in ("new", "close", "floating", "title", "move") or window ["change"] == "focus" and window ["container"] ["type"] == "floating_con")):
+    if window ["change"] != "focus":
         for k, v in borders.items ():
             if k in onlys:
                 if v == "normal":
                     _ = subprocess.run (["swaymsg", f'[con_id="{k}"]', "border", "none"])
             elif v == "none":
                 _ = subprocess.run (["swaymsg", f'[con_id="{k}"]', "border", "normal"])
-    if reload:
-        time.sleep (0.3)
-        reload = False
-    else:
-        window = subprocess.run (["swaymsg", "-t", "subscribe", '[ "window", "workspace" ]'], capture_output = True)
-        window.check_returncode ()
-        window = json.loads (window.stdout.decode ())
-        reload = True
+
+def delay_onlywindow (delay):
+    time.sleep (delay)
+    onlywindow ()
+
+while True:
+    onlywindow ()
+    t = threading.Thread (target = delay_onlywindow, args = (0.3, ))
+    t.start ()
+    window = subprocess.run (["swaymsg", "-t", "subscribe", '[ "window", "workspace" ]'], capture_output = True)
+    window.check_returncode ()
+    window = json.loads (window.stdout.decode ())

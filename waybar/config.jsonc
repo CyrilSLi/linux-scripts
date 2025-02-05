@@ -152,7 +152,8 @@
     "custom/sway-window": {
         "interval": "once",
         "exec": "cat /tmp/custom-sway-window/$WAYBAR_OUTPUT_NAME",
-        "signal": 2, // SIGRTMIN+2 or 36
+        "signal": 2, // SIGRTMIN+2 or 36,
+        "max-length": 999,
         "tooltip": false
     },
     "custom/timezone": {

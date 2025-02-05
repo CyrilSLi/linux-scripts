@@ -104,6 +104,12 @@ button:hover {
     margin: 0 4px;
 }
 
+#custom-sway-window {
+    background-color: #285577;
+    padding: 0 4px;
+    border: 1px solid #4c7899;
+}
+
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
     margin-left: 0;
