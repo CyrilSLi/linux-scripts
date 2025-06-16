@@ -16,7 +16,7 @@
         "pulseaudio",
         "cpu",
         "custom/gpu",
-        "temperature",
+        "custom/sensor",
         "power-profiles-daemon",
         "battery",
         "memory",
@@ -62,16 +62,6 @@
         "format": "{used:0.1f}G {swapUsed:0.1f}G ",
         "tooltip-format": "Totals: {total:0.2f}G {swapTotal:0.2f}G",
         "on-click": "foot -a htop_usercliapp htop -s PERCENT_MEM"
-    },
-    "temperature": {
-        "interval": 5,
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""],
-        "tooltip": false
     },
     "battery": {
         "interval": 5,
@@ -129,10 +119,13 @@
         "on-scroll-up": "",
         "on-scroll-down": ""
     },
+    "custom/sensor": {
+        "exec": "info=($(sensors -u -c /dev/null | grep \"cpu@4c:\\|fan1:\\|fan2:\" -A1 | awk 'NR % 3 == 2 { print $NF }')); echo \"$(echo \"scale=0; (${info[0]} + ${info[1]}) / 2\" | bc) RPM   $(printf \"%.1f\" ${info[2]})°C \";",
+        "interval": 5,
+    },
     "custom/gpu": {
         "exec": "cat /sys/class/hwmon/hwmon8/device/gpu_busy_percent",
         "format": " {}% ",
-        "return-type": "",
         "interval": 5,
         "tooltip-format": "GPU: {}%"
     },
