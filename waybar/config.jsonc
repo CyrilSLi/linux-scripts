@@ -23,6 +23,9 @@
         "network",
         "group/time"
     ],
+    "sway/workspaces": {
+        "disable-scroll": true
+    },
     "group/time": {
         "orientation": "horizontal",
         "modules": [
