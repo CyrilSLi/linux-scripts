@@ -1,11 +1,20 @@
 set $term foot
 set $mod Mod4
 
+# exec_always killall ulauncher; ulauncher --hide-window --no-window-shadow
+exec ulauncher --hide-window --no-window-shadow
+exec_always kill $(pgrep -f onlywindow.py)
+exec_always python /home/cyrilli/.config/sway/detect_onlywindow.py
+
 output * bg /usr/share/backgrounds/default.jxl fill
 output * adaptive_sync off
+
 output eDP-1 scale 1.25 pos 0 1080 mode 2560x1600@165Hz
 output DP-2 scale 1.5 pos 2048 920 mode 3840x2160@60Hz
 output DP-3 scale 1 pos 128 0 mode 1920x1080@100Hz
+# output eDP-1 scale 1 pos 0 1080 mode 1920x1200@165Hz
+# output DP-2 scale 1 pos 1920 840 mode 2560x1440@60Hz
+# output DP-3 scale 1 pos 0 0 mode 1920x1080@100Hz
 
 for_window [all] inhibit_idle open
 for_window [all] border normal 0
@@ -106,15 +115,26 @@ bindsym $mod+Shift+Control+8 move container to workspace number 18
 bindsym $mod+Shift+Control+9 move container to workspace number 19
 bindsym $mod+Shift+Control+0 move container to workspace number 20
 
-# exec_always killall ulauncher; ulauncher --hide-window --no-window-shadow
-exec ulauncher --hide-window --no-window-shadow
-exec_always kill $(pgrep -f onlywindow.py)
-exec_always python /home/cyrilli/.config/sway/detect_onlywindow.py
+workspace 1 output eDP-1
+workspace 2 output eDP-1
+workspace 3 output eDP-1
+workspace 4 output DP-2
+workspace 5 output DP-2
+workspace 6 output DP-3
+workspace 8 output DP-3
+workspace 9 output eDP-1
+workspace 11 output DP-3
+# workspace 13 output HEADLESS-
 
-bindgesture swipe:3:left exec "python /home/cyrilli/.config/sway/switch_desktop.py right # && echo 2 > /tmp/sovpipe && sleep 0.000001 && echo 2 > /tmp/sovpipe"
-bindgesture swipe:3:right exec "python /home/cyrilli/.config/sway/switch_desktop.py left # && echo 2 > /tmp/sovpipe && sleep 0.000001 && echo 2 > /tmp/sovpipe"
-bindsym $mod+alt+Left exec "python /home/cyrilli/.config/sway/switch_desktop.py left"
-bindsym $mod+alt+Right exec "python /home/cyrilli/.config/sway/switch_desktop.py right"
+bindgesture swipe:3:left workspace next_on_output
+bindgesture swipe:3:right workspace prev_on_output
+bindsym $mod+alt+Left workspace prev_on_output
+bindsym $mod+alt+Right workspace next_on_output
+
+# bindgesture swipe:3:left exec "python /home/cyrilli/.config/sway/switch_desktop.py right # && echo 2 > /tmp/sovpipe && sleep 0.000001 && echo 2 > /tmp/sovpipe"
+# bindgesture swipe:3:right exec "python /home/cyrilli/.config/sway/switch_desktop.py left # && echo 2 > /tmp/sovpipe && sleep 0.000001 && echo 2 > /tmp/sovpipe"
+# bindsym $mod+alt+Left exec "python /home/cyrilli/.config/sway/switch_desktop.py left"
+# bindsym $mod+alt+Right exec "python /home/cyrilli/.config/sway/switch_desktop.py right"
 # bindgesture swipe:3:up exec "echo 1 > /tmp/sovpipe"
 # bindgesture swipe:3:down exec "echo 0 > /tmp/sovpipe"
 
