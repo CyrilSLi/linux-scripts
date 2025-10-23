@@ -140,8 +140,8 @@ bindsym $mod+alt+Right workspace next_on_output
 
 bindsym alt+space exec ulauncher-toggle
 bindsym $mod+d exec python /home/cyrilli/Projects/diacritik/diacritik.py
-bindsym $mod+ctrl+equal exec python /home/cyrilli/.config/sway/new_workspace.py move
-bindsym $mod+equal exec python /home/cyrilli/.config/sway/new_workspace.py switch
+bindsym $mod+ctrl+equal move window to workspace next_number
+bindsym $mod+equal workspace next_number 
 
 # Layout stuff:
 #
