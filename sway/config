@@ -139,7 +139,7 @@ bindsym $mod+alt+Right workspace next_on_output
 # bindgesture swipe:3:down exec "echo 0 > /tmp/sovpipe"
 
 bindsym alt+space exec ulauncher-toggle
-bindsym $mod+d exec python /home/cyrilli/Projects/diacritik/diacritik.py
+bindsym $mod+d exec python3.10 /home/cyrilli/Projects/diacritik/diacritik.py
 bindsym $mod+ctrl+equal move window to workspace next_number
 bindsym $mod+equal workspace next_number 
 
