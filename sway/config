@@ -23,6 +23,7 @@ for_window [app_id="mpv"] floating enable
 for_window [class="XEyes"] floating enable, sticky enable
 for_window [title="Diacritik"] floating enable, sticky enable, move position center
 for_window [title="Picture-in-picture"] floating enable, sticky enable, border none, resize set 480 px 270 px
+for_window [title="Rename \\\".+\\\"$"] floating enable
 for_window [title="File Operation Progress"] floating enable
 for_window [app_id="_usercliapp$"] floating enable, move position center, resize set width 80ppt height 80ppt
 for_window [title="Open File"] floating enable, move position center, resize set width 80ppt height 80ppt
