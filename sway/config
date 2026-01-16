@@ -1,10 +1,13 @@
 set $term foot
 set $mod Mod4
 
+primary_selection disabled
+
 # exec_always killall ulauncher; ulauncher --hide-window --no-window-shadow
 exec ulauncher --hide-window --no-window-shadow
 exec_always kill $(pgrep -f onlywindow.py)
 exec_always python /home/cyrilli/.config/sway/detect_onlywindow.py
+exec_always python /home/cyrilli/Projects/yt-localhost-iframe/yt-iframe.py
 
 output * bg /usr/share/backgrounds/default.jxl fill
 output * adaptive_sync off

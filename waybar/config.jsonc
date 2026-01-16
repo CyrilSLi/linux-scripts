@@ -127,7 +127,7 @@
         "interval": 5,
     },
     "custom/gpu": {
-        "exec": "cat /sys/class/hwmon/hwmon8/device/gpu_busy_percent",
+        "exec": "cat /sys/class/hwmon/hwmon*/device/gpu_busy_percent",
         "format": " {}% ",
         "interval": 5,
         "tooltip-format": "GPU: {}%"
