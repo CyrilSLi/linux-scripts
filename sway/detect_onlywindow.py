@@ -11,7 +11,7 @@ logging.basicConfig (
     level = logging.INFO
 )
 
-signal.signal (signal.SIGUSR1, lambda *_: logger.info ("SUSPEND N/A"))
+signal.signal (signal.SIGUSR1, lambda *_: logger.info ("SUSPEND N/A N/A"))
 
 window = {"change": None}
 count = 0 # Debugging
@@ -41,9 +41,9 @@ def onlywindow ():
             workspace_name = node ["name"]
         if node.get ("focused") and node ["type"] != "workspace":
             if node.get ("app_id"):
-                logmsg = f'{workspace_name} {space_esc (node ["app_id"])}'
+                logmsg = f'{currentspaces [workspace_name]} {workspace_name} {space_esc (node ["app_id"])}'
             elif node.get ("window_properties", {}).get ("class"):
-                logmsg = f'{workspace_name} {space_esc (node ["window_properties"] ["class"])}'
+                logmsg = f'{currentspaces [workspace_name]} {workspace_name} {space_esc (node ["window_properties"] ["class"])}'
         if node ["type"] == "output" and "current_workspace" in node:
             currentspaces [node ["current_workspace"]] = node ["name"]
         if node ["name"] in ("__i3", "__i3_scratch"):
