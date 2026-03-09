@@ -15,6 +15,8 @@ output * adaptive_sync off
 output eDP-1 scale 1.25 pos 0 1080 mode 2560x1600@165Hz
 output DP-2 scale 1.5 pos 2048 920 mode 3840x2160@60Hz
 output DP-3 scale 1 pos 128 0 mode 1920x1080@100Hz
+exec_always swaymsg output $(swaymsg -t get_outputs -p | grep "Output HEADLESS-" | cut -d " " -f 2) position 3008 2360 mode 2560x1600 scale 1.6
+
 # output eDP-1 scale 1 pos 0 1080 mode 1920x1200@165Hz
 # output DP-2 scale 1 pos 1920 840 mode 2560x1440@60Hz
 # output DP-3 scale 1 pos 0 0 mode 1920x1080@100Hz
@@ -60,7 +62,7 @@ input type:keyboard {
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 floating_modifier $mod normal
-bindsym $mod+Shift+c exec "sh /home/cyrilli/script/vnc-off.sh; sway reload"
+bindsym $mod+Shift+c reload
 
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down

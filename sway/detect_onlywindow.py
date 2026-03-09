@@ -1,14 +1,26 @@
-import subprocess, json, threading, time, os
+import subprocess, json, logging, signal, threading, time, os
+
+logger = logging.getLogger (__name__)
+logging.basicConfig (
+    filename = os.path.expanduser ("~/Projects/linux-scripts/sway/focus_switches.log"),
+    format = "%(created)f %(message)s",
+    level = logging.INFO
+)
+
+signal.signal (signal.SIGUSR1, lambda *_: logger.info ("SUSPEND N/A"))
 
 window = {"change": None}
 count = 0 # Debugging
+prev_logmsg = None
 ignore = [
     "Picture-in-picture"
 ]
 if not os.path.exists ("/tmp/custom-sway-window"):
     os.mkdir ("/tmp/custom-sway-window")
+space_esc = lambda s: s.strip ().replace (" ", "_")
 
 def onlywindow ():
+    global prev_logmsg
     pretty = subprocess.run (["swaymsg", "-pt", "get_tree"], capture_output = True)
     pretty.check_returncode ()
     pretty = [i [4 : ] for i in pretty.stdout.decode ().strip ().split ("\n") if i.startswith ("    ") or i.startswith ("  #")] + ["# EOF"]
@@ -18,8 +30,16 @@ def onlywindow ():
     raw = json.loads (raw.stdout.decode ())
 
     borders, currentspaces, names = {}, {}, {}
+    logmsg, workspace_name = "N/A", "N/A"
     def recurse_node (node, workspace = None):
-        nonlocal borders, currentspaces, names
+        nonlocal borders, currentspaces, logmsg, names, workspace_name
+        if node ["type"] == "workspace":
+            workspace_name = node ["name"]
+        if node.get ("focused") and node ["type"] != "workspace":
+            if node.get ("app_id"):
+                logmsg = f'{workspace_name} {space_esc (node ["app_id"])}'
+            elif node.get ("window_properties", {}).get ("class"):
+                logmsg = f'{workspace_name} {space_esc (node ["window_properties"] ["class"])}'
         if node ["type"] == "output" and "current_workspace" in node:
             currentspaces [node ["current_workspace"]] = node ["name"]
         if node ["name"] in ("__i3", "__i3_scratch"):
@@ -31,6 +51,9 @@ def onlywindow ():
         for i in node ["nodes"] + node ["floating_nodes"]:
             recurse_node (i, i ["name"] if i ["type"] == "workspace" else workspace) # Workspace is the parent workspace
     recurse_node (raw)
+    if logmsg not in (prev_logmsg, "N/A"):
+        logger.info (logmsg)
+        prev_logmsg = logmsg
 
     allcontainers, workspace, containers, onlys, output = [], None, [], [], None
     for i in pretty:
