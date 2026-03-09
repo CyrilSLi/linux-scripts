@@ -12,6 +12,7 @@ logging.basicConfig (
 )
 
 signal.signal (signal.SIGUSR1, lambda *_: logger.info ("SUSPEND N/A N/A"))
+logger.info ("STARTUP N/A N/A")
 
 window = {"change": None}
 count = 0 # Debugging
