@@ -1,8 +1,13 @@
 import subprocess, json, logging, signal, threading, time, os
+from logging import handlers
 
 logger = logging.getLogger (__name__)
 logging.basicConfig (
-    filename = os.path.expanduser ("~/Projects/linux-scripts/sway/focus_switches.log"),
+    handlers = [handlers.TimedRotatingFileHandler (
+        os.path.expanduser ("~/Projects/linux-scripts/sway/focus_switch_logs/focus_switches.log"),
+        when = "D",
+        interval = 1
+    )],
     format = "%(created)f %(message)s",
     level = logging.INFO
 )
