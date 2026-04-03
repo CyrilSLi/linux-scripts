@@ -3,12 +3,6 @@ set $mod Mod4
 
 primary_selection disabled
 
-# exec_always killall ulauncher; ulauncher --hide-window --no-window-shadow
-exec ulauncher --hide-window --no-window-shadow
-exec_always kill $(pgrep -f onlywindow.py)
-exec_always python /home/cyrilli/.config/sway/detect_onlywindow.py
-exec_always python /home/cyrilli/Projects/yt-localhost-iframe/yt-iframe.py
-
 output * bg /usr/share/backgrounds/default.jxl fill
 output * adaptive_sync off
 
@@ -121,17 +115,6 @@ bindsym $mod+Shift+Control+8 move container to workspace number 18
 bindsym $mod+Shift+Control+9 move container to workspace number 19
 bindsym $mod+Shift+Control+0 move container to workspace number 20
 
-workspace 1 output eDP-1
-workspace 2 output eDP-1
-workspace 3 output eDP-1
-workspace 4 output DP-2
-workspace 5 output DP-2
-workspace 6 output DP-3
-workspace 8 output DP-3
-workspace 9 output eDP-1
-workspace 11 output DP-3
-# workspace 13 output HEADLESS-
-
 bindgesture swipe:3:left workspace next_on_output
 bindgesture swipe:3:right workspace prev_on_output
 bindsym $mod+alt+Left workspace prev_on_output
@@ -188,3 +171,28 @@ bindsym $mod+equal workspace next_number
     bindsym $mod+Shift+equal scratchpad show
 
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
+
+
+
+
+
+# Startup programs
+
+workspace 1 output eDP-1
+workspace 2 output eDP-1
+workspace 3 output eDP-1
+workspace 4 output DP-2
+workspace 5 output DP-2
+workspace 6 output DP-3
+workspace 8 output DP-3
+workspace 9 output eDP-1
+workspace 11 output DP-3
+# workspace 13 output HEADLESS-
+
+exec waybar
+exec ulauncher --hide-window --no-window-shadow
+exec_always kill $(pgrep -f onlywindow.py)
+exec_always python /home/cyrilli/.config/sway/detect_onlywindow.py
+exec_always python /home/cyrilli/Projects/yt-localhost-iframe/yt-iframe.py
+
+exec /home/cyrilli/.config/sway/startup_containers.sh
