@@ -185,6 +185,7 @@ workspace 11 output DP-3
 # workspace 13 output HEADLESS-
 
 exec waybar
+exec playerctld daemon
 exec ulauncher --hide-window --no-window-shadow
 exec_always kill $(pgrep -f onlywindow.py)
 exec_always python /home/cyrilli/.config/sway/detect_onlywindow.py
