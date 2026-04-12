@@ -30,10 +30,7 @@ for_window [title="Open Folder"] floating enable, move position center, resize s
 for_window [title="All Files"] floating enable, move position center, resize set width 80ppt height 80ppt
 bindsym $mod+Control+Space floating disable, floating enable, move position center, resize set width 80ppt height 80ppt
 
-exec swayidle -w \
-    before-sleep 'swaymsg "output * power off"' \
-    after-resume 'swaymsg "output * power on"; swaylock'
-#    timeout 5 'if pgrep swaylock; then swaymsg "output * power off"; fi' \
+exec swayidle -w before-sleep 'swaylock -f'
 
 input type:touchpad {
     dwt disabled
@@ -171,8 +168,6 @@ bindsym $mod+equal workspace next_number
     bindsym $mod+Shift+equal scratchpad show
 
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
-
-
 
 
 
