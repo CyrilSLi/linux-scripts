@@ -54,6 +54,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 floating_modifier $mod normal
 bindsym $mod+Shift+c reload
+bindsym $mod+Shift+b exec killall -SIGUSR2 waybar
 
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
