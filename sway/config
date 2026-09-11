@@ -7,12 +7,12 @@ output * bg /usr/share/backgrounds/default.jxl fill
 output * adaptive_sync off
 
 output eDP-1 scale 1.25 pos 0 1080 mode 2560x1600@165Hz
-output DP-2 scale 1.5 pos 2048 920 mode 3840x2160@60Hz
+output DP-4 scale 1.5 pos 2048 920 mode 3840x2160@60Hz
 output DP-3 scale 1 pos 128 0 mode 1920x1080@100Hz
 exec_always swaymsg output $(swaymsg -t get_outputs -p | grep "Output HEADLESS-" | cut -d " " -f 2) position 3008 2360 mode 2560x1600 scale 1.6
 
 # output eDP-1 scale 1 pos 0 1080 mode 1920x1200@165Hz
-# output DP-2 scale 1 pos 1920 840 mode 2560x1440@60Hz
+# output DP-4 scale 1 pos 1920 840 mode 2560x1440@60Hz
 # output DP-3 scale 1 pos 0 0 mode 1920x1080@100Hz
 
 for_window [all] inhibit_idle open
@@ -24,6 +24,7 @@ for_window [title="Diacritik"] floating enable, sticky enable, move position cen
 for_window [title="Picture-in-picture"] floating enable, sticky enable, border none, resize set 480 px 270 px
 for_window [title="Rename \\\".+\\\"$"] floating enable
 for_window [title="File Operation Progress"] floating enable
+for_window [app_id="zenity"] floating enable
 for_window [app_id="_usercliapp$"] floating enable, move position center, resize set width 80ppt height 80ppt
 for_window [title="Open File"] floating enable, move position center, resize set width 80ppt height 80ppt
 for_window [title="Open Folder"] floating enable, move position center, resize set width 80ppt height 80ppt
@@ -127,6 +128,7 @@ bindsym $mod+alt+Right workspace next_on_output
 
 bindsym alt+space exec ulauncher-toggle
 bindsym $mod+d exec python3.10 /home/cyrilli/Projects/diacritik/diacritik.py
+bindsym $mod+o exec swaymsg output $(swaymsg -t get_outputs | jq -r ".[] | select(.focused==true) | .name") dpms toggle
 bindsym $mod+ctrl+equal move window to workspace next_number
 bindsym $mod+equal workspace next_number 
 
@@ -177,8 +179,8 @@ include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "
 workspace 1 output eDP-1
 workspace 2 output eDP-1
 workspace 3 output eDP-1
-workspace 4 output DP-2
-workspace 5 output DP-2
+workspace 4 output DP-4
+workspace 5 output DP-4
 workspace 6 output DP-3
 workspace 8 output DP-3
 workspace 9 output eDP-1
