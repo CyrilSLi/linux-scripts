@@ -182,8 +182,10 @@ workspace 3 output eDP-1
 workspace 4 output DP-4
 workspace 5 output DP-4
 workspace 6 output DP-3
+workspace 7 output eDP-1
 workspace 8 output DP-3
 workspace 9 output eDP-1
+workspace 10 output eDP-1
 workspace 11 output DP-3
 # workspace 13 output HEADLESS-
 

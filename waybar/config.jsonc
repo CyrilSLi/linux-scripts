@@ -80,7 +80,8 @@
         // "format-alt": "{capacity}% {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""],
+        "on-click": "foot -a bat_info_usercliapp sh -c 'sleep 0.2; upower -i $(upower -e | grep BAT) | less +G'"
     },
     "battery#bat2": {
         "bat": "BAT2"
@@ -96,9 +97,11 @@
       }
     },
     "network": {
+        "family": "ipv4_6",
         "interval": 5,
         "format": "{bandwidthUpBytes} {bandwidthDownBytes} ",
-        "tooltip-format": "{ifname}: {ipaddr}/{cidr}"
+        "tooltip-format": "{ifname}: {essid}\n{ipaddr}",
+        "on-click": "foot -a nethogs_usercliapp nethogs -C"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
