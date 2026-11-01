@@ -3,6 +3,14 @@
     font-size: 13px;
 }
 
+tooltip {
+    background-color: #000000;
+}
+
+tooltip label {
+    color: #ffffff;
+}
+
 window#waybar {
     background-color: #000000;
     border-bottom: 0px;
