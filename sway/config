@@ -1,6 +1,8 @@
 set $term foot
 set $mod Mod4
 
+focus_wrapping no
+
 primary_selection disabled
 
 output * bg /usr/share/backgrounds/default.jxl fill
@@ -125,6 +127,11 @@ bindsym $mod+alt+Right workspace next_on_output
 # bindsym $mod+alt+Right exec "python /home/cyrilli/.config/sway/switch_desktop.py right"
 # bindgesture swipe:3:up exec "echo 1 > /tmp/sovpipe"
 # bindgesture swipe:3:down exec "echo 0 > /tmp/sovpipe"
+
+bindgesture swipe:4:left focus output left
+bindgesture swipe:4:right focus output right
+bindgesture swipe:4:up focus output up
+bindgesture swipe:4:down focus output down
 
 bindsym alt+space exec ulauncher-toggle
 bindsym $mod+d exec python3.10 /home/cyrilli/Projects/diacritik/diacritik.py
