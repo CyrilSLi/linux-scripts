@@ -1,3 +1,5 @@
+exec /home/cyrilli/script/oo7-unlock
+
 set $term foot
 set $mod Mod4
 
